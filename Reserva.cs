@@ -17,18 +17,18 @@ class Reserva{
     }
 
     public void CalcularValor(decimal ValorDiariaQuarto)
+{
+    if (DataSaida <= DataEntrada)
     {
-        int dias = (DataSaida - DataEntrada).Days;
-
-        if (dias > 0)
-        {
-            ValorTotal = dias * ValorDiariaQuarto;
-        }
-        else
-        {
-            ValorTotal = 0;
-        }
+        Console.WriteLine("Data de saída inválida!");
+        ValorTotal = 0;
+        return;
     }
+
+    int dias = (DataSaida - DataEntrada).Days;
+
+    ValorTotal = dias * ValorDiariaQuarto;
+}
 
     public void ExibirDados()
     {

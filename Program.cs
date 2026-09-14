@@ -49,6 +49,9 @@ class Program{
                     hotel.VerificarDisponibilidadeQuarto(numDisponi);
                 break;
 
+                case 0:
+                break;
+
                 default:
                     Console.WriteLine("Opção inválida, digite novamente");
                 break;
@@ -57,6 +60,164 @@ class Program{
             }
         }while(opQuarto != 0);
     }
+
+    // gerencia as reservas
+    public static void GerenciarReserva(Hotel hotel)
+{
+    int opReserva = 1;
+
+    do
+    {
+        Console.WriteLine("  ");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("          HOTEL PARADISE         ");
+        Console.WriteLine("    Gerenciamento de Reservas    ");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("  ");
+        Console.WriteLine(" | [1] Fazer Reserva");
+        Console.WriteLine(" | [2] Listar Reservas");
+        Console.WriteLine(" | [3] Cancelar Reserva");
+        Console.WriteLine(" | [0] Voltar");
+        Console.WriteLine("  ");
+        Console.Write(">>> Escolha uma opção: ");
+
+        opReserva = int.Parse(Console.ReadLine());
+
+        switch (opReserva)
+        {
+            case 1:
+                Console.Write("ID da reserva: ");
+                int idReserva = int.Parse(Console.ReadLine());
+
+                Console.Write("ID do hóspede: ");
+                int idHospede = int.Parse(Console.ReadLine());
+
+                Hospede hospede = hotel.BuscarHospede(idHospede);
+
+                if (hospede == null)
+                {
+                    Console.WriteLine("Hóspede não encontrado!");
+                    break;
+                }
+
+                Console.Write("Número do quarto: ");
+                int numeroQuarto = int.Parse(Console.ReadLine());
+
+                Quarto quarto = hotel.BuscarQuartoReserva(numeroQuarto);
+
+                if (quarto == null)
+                {
+                    Console.WriteLine("Quarto não encontrado!");
+                    break;
+                }
+
+                if (quarto.Disponibilidade == false)
+                {
+                    Console.WriteLine("Quarto não está disponível!");
+                    break;
+                }
+
+                Console.Write("Data de entrada: ");
+                DateTime dataEntrada = DateTime.Parse(Console.ReadLine());
+
+                Console.Write("Data de saída: ");
+                DateTime dataSaida = DateTime.Parse(Console.ReadLine());
+
+                if (dataSaida <= dataEntrada)
+                {
+                    Console.WriteLine("Data de saída inválida!");
+                    break;
+                }
+
+               Reserva reserva = new Reserva(idReserva, hospede, quarto, dataEntrada, dataSaida);
+               
+                reserva.CalcularValor(quarto.ValorDiaria);
+
+                hotel.FazerReserva(reserva);
+
+                break;
+
+            case 2:
+                hotel.ListarReservas();
+                break;
+
+            case 3:
+                Console.Write("Digite o ID da reserva: ");
+                int idCancelar = int.Parse(Console.ReadLine());
+
+                hotel.CancelarReserva(idCancelar);
+                break;
+
+            case 0:
+                break;
+
+            default:
+                Console.WriteLine("Opção inválida, digite novamente");
+                break;
+        }
+
+    } while (opReserva != 0);
+}
+
+    public static void GerenciarHospede(Hotel hotel)
+{
+    int opHospede = 1;
+
+    do
+    {
+        Console.WriteLine("  ");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("          HOTEL PARADISE         ");
+        Console.WriteLine("    Gerenciamento de Hóspedes    ");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("  ");
+        Console.WriteLine(" | [1] Cadastrar Hóspede");
+        Console.WriteLine(" | [2] Listar Hóspedes");
+        Console.WriteLine(" | [3] Buscar Hóspede");
+        Console.WriteLine(" | [0] Voltar");
+        Console.WriteLine("  ");
+        Console.Write(">>> Escolha uma opção: ");
+
+        opHospede = int.Parse(Console.ReadLine());
+
+        switch (opHospede)
+        {
+            case 1:
+                hotel.CadastrarHospede();
+                break;
+
+            case 2:
+                hotel.ListarHospedes();
+                break;
+
+            case 3:
+                Console.Write("Digite o ID do hóspede: ");
+                int id = int.Parse(Console.ReadLine());
+
+                Hospede hospede = hotel.BuscarHospede(id);
+
+                if (hospede != null)
+                {
+                    hospede.ExibirDados();
+                }
+                else
+                {
+                    Console.WriteLine("Hóspede não encontrado!");
+                }
+
+                break;
+
+            case 0:
+                break;
+
+            default:
+                Console.WriteLine("Opção inválida, digite novamente");
+                break;
+        }
+
+    } while (opHospede != 0);
+}
+
     static void Main(string[] args){
         
         Hotel hotel = new Hotel();
@@ -81,7 +242,7 @@ class Program{
 
             switch (opcao){
                 case 1 :
-                    Console.WriteLine("");
+                 GerenciarHospede(hotel);
                 break;
 
                 case 2:
@@ -89,7 +250,7 @@ class Program{
                 break;
 
                 case 3:
-                    Console.WriteLine("");
+                    GerenciarReserva(hotel);
                 break;
 
                 case 0:
