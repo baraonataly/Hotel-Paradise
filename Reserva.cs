@@ -18,7 +18,7 @@ class Reserva{
         CalcularValor();
     }
 
-    public void CalcularValor()
+    public void CalcularValor(decimal Quarto.ValorDiaria)
     {
         int dias = (DataSaida - DataEntrada).Days;
 
