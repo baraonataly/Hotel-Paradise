@@ -14,17 +14,15 @@ class Reserva{
         Quarto = quarto;
         DataEntrada = dataEntrada;
         DataSaida = dataSaida;
-
-        CalcularValor();
     }
 
-    public void CalcularValor(decimal Quarto.ValorDiaria)
+    public void CalcularValor(decimal ValorDiariaQuarto)
     {
         int dias = (DataSaida - DataEntrada).Days;
 
         if (dias > 0)
         {
-            ValorTotal = dias * Quarto.ValorDiaria;
+            ValorTotal = dias * ValorDiariaQuarto;
         }
         else
         {

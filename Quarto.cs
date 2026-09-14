@@ -2,10 +2,10 @@ class Quarto{
     public int Numero;
     public string Tipo; // Solteiro, Casal, Suite
     public int Capacidade;
-    public double ValorDiaria;
+    public decimal ValorDiaria;
     public bool Disponibilidade = true;
     
-    public Quarto(int numero, string tipo, int capacidade, double valorDiaria){
+    public Quarto(int numero, string tipo, int capacidade, decimal valorDiaria){
         Numero = numero;
         Tipo = tipo;
         Capacidade = capacidade;
