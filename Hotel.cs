@@ -24,6 +24,14 @@ class Hotel{
         Console.Write("Tipo (Solteiro, Casal ou Suite): ");
         string tipo = Entrada.LerTexto();
 
+        while (tipo.ToLower() != "solteiro" &&
+                tipo.ToLower() != "casal" &&
+                tipo.ToLower() != "suite")
+        {
+            Console.Write("Tipo inválido! Digite Solteiro, Casal ou Suite: ");
+            tipo = Entrada.LerTexto();
+        }
+
         Console.Write("Capacidade: ");
         int capacidade = Entrada.LerNumero();
 
