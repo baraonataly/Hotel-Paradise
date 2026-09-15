@@ -7,24 +7,37 @@ class Hotel{
     public void CadastrarQuarto(){
         Console.WriteLine(" ");
         Console.Write("Numero do quarto: ");
-        int numeroQuarto = int.Parse(Console.ReadLine());
+        int numeroQuarto = Entrada.LerNumero();
 
         while (numeroQuarto <= 0){
             Console.WriteLine("Número de quarto inválido! Digite novamente");
             Console.WriteLine(" ");
             Console.Write("Número do quarto: ");
-            numeroQuarto = int.Parse(Console.ReadLine());
+            numeroQuarto = Entrada.LerNumero();
         }
 
         Console.Write("Tipo (Solteiro, Casal ou Suite): ");
-        string tipo = Console.ReadLine();
+        string tipo = Entrada.LerTexto();
 
         Console.Write("Capacidade: ");
-        int capacidade = int.Parse(Console.ReadLine());
+        int capacidade = Entrada.LerNumero();
+
+        while (capacidade <= 0)
+        {
+            Console.WriteLine("Capacidade inválida! Digite novamente.");
+            Console.Write("Capacidade: ");
+            capacidade = Entrada.LerNumero();
+        }
         
         Console.Write("Valor da diaria: ");
-        decimal valorDiaria = decimal.Parse(Console.ReadLine());
-    
+        decimal valorDiaria = Entrada.LerDecimal();
+
+        while (valorDiaria <= 0)
+        {
+            Console.Write("Valor inválido! Digite novamente: ");
+            valorDiaria = Entrada.LerDecimal();
+        }
+            
         Quarto quarto = new Quarto(numeroQuarto, tipo, capacidade, valorDiaria);
         listaQuartos.Add(quarto);
 
@@ -39,32 +52,20 @@ class Hotel{
         }
     }
 
-    public void BuscarQuarto(int numeroQuarto){
-        for (int i = 0; i < listaQuartos.Count; i++){
-            Quarto quarto = listaQuartos[i];
-            
-            if(quarto.Numero == numeroQuarto){
-                quarto.ExibirDadosQuarto();
-            }
-        }
-        
-    }
-
-    //  busca o quarto para usar na reserva
-    public Quarto BuscarQuartoReserva(int numeroQuarto)
+    public Quarto? BuscarQuarto(int numeroQuarto)
+{
+    for (int i = 0; i < listaQuartos.Count; i++)
     {
-        for (int i = 0; i < listaQuartos.Count; i++)
+        Quarto quarto = listaQuartos[i];
+
+        if (quarto.Numero == numeroQuarto)
         {
-            Quarto quarto = listaQuartos[i];
-
-            if (quarto.Numero == numeroQuarto)
-            {
-                return quarto;
-            }
+            return quarto;
         }
-
-        return null;
     }
+
+    return null;
+}
 
     public void VerificarDisponibilidadeQuarto(int numeroQuarto){
         for (int i = 0; i < listaQuartos.Count; i++){
@@ -76,22 +77,21 @@ class Hotel{
         }
     }
 
-    // hospede
-
+// hospede
 public void CadastrarHospede()
 {
     Console.WriteLine(" ");
     Console.Write("ID do hóspede: ");
-    int id = int.Parse(Console.ReadLine());
+    int id = Entrada.LerNumero();
 
     Console.Write("Nome: ");
-    string nome = Console.ReadLine();
+    string nome = Entrada.LerTexto();
 
     Console.Write("CPF: ");
-    string cpf = Console.ReadLine();
+    string cpf = Entrada.LerTexto();
 
     Console.Write("Telefone: ");
-    string telefone = Console.ReadLine();
+    string telefone = Entrada.LerTexto();
 
     Hospede hospede = new Hospede(id, nome, cpf, telefone);
 
@@ -113,7 +113,7 @@ public void ListarHospedes()
     }
 }
 
-public Hospede BuscarHospede(int id)
+public Hospede? BuscarHospede(int id)
 {
     for (int i = 0; i < listaHospedes.Count; i++)
     {

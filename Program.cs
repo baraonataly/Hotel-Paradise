@@ -19,8 +19,9 @@ class Program{
             Console.WriteLine(" | [4] Verificar Disponibilidade");
             Console.WriteLine(" | [0] Voltar");
             Console.WriteLine("  ");
+
             Console.Write(">>> Escolha uma opção: ");
-            opQuarto = int.Parse(Console.ReadLine());
+            opQuarto = Entrada.LerNumero();
 
             switch (opQuarto){
                 case 1 :
@@ -35,16 +36,22 @@ class Program{
                     int num = 0;
             
                     Console.WriteLine("Digite o número do Quarto: ");
-                    num = int.Parse(Console.ReadLine());
+                    num = Entrada.LerNumero();
             
-                    hotel.BuscarQuarto(num);
+                    Quarto? quarto = hotel.BuscarQuarto(num);
+
+                    if (quarto != null){
+                        quarto.ExibirDadosQuarto();
+                    }else{
+                        Console.WriteLine("Quarto não encontrado!");
+                    }
                 break;
 
                 case 4:
                     int numDisponi = 0;
             
                     Console.WriteLine("Digite o número do Quarto: ");
-                    numDisponi = int.Parse(Console.ReadLine());
+                    numDisponi = Entrada.LerNumero();
             
                     hotel.VerificarDisponibilidadeQuarto(numDisponi);
                 break;
@@ -62,8 +69,7 @@ class Program{
     }
 
     // gerencia as reservas
-    public static void GerenciarReserva(Hotel hotel)
-{
+    public static void GerenciarReserva(Hotel hotel){
     int opReserva = 1;
 
     do
@@ -79,20 +85,20 @@ class Program{
         Console.WriteLine(" | [3] Cancelar Reserva");
         Console.WriteLine(" | [0] Voltar");
         Console.WriteLine("  ");
-        Console.Write(">>> Escolha uma opção: ");
 
-        opReserva = int.Parse(Console.ReadLine());
+        Console.Write(">>> Escolha uma opção: ");
+        opReserva = Entrada.LerNumero();
 
         switch (opReserva)
         {
             case 1:
                 Console.Write("ID da reserva: ");
-                int idReserva = int.Parse(Console.ReadLine());
+                int idReserva = Entrada.LerNumero();
 
                 Console.Write("ID do hóspede: ");
-                int idHospede = int.Parse(Console.ReadLine());
+                int idHospede = Entrada.LerNumero();
 
-                Hospede hospede = hotel.BuscarHospede(idHospede);
+                Hospede? hospede = hotel.BuscarHospede(idHospede);
 
                 if (hospede == null)
                 {
@@ -101,27 +107,25 @@ class Program{
                 }
 
                 Console.Write("Número do quarto: ");
-                int numeroQuarto = int.Parse(Console.ReadLine());
+                int numeroQuarto = Entrada.LerNumero();
 
-                Quarto quarto = hotel.BuscarQuartoReserva(numeroQuarto);
+                Quarto? quarto = hotel.BuscarQuarto(numeroQuarto);
 
-                if (quarto == null)
-                {
+                if (quarto == null){
                     Console.WriteLine("Quarto não encontrado!");
                     break;
                 }
 
-                if (quarto.Disponibilidade == false)
-                {
+                if (quarto.Disponibilidade == false){
                     Console.WriteLine("Quarto não está disponível!");
                     break;
                 }
 
                 Console.Write("Data de entrada: ");
-                DateTime dataEntrada = DateTime.Parse(Console.ReadLine());
+                DateTime dataEntrada = Entrada.LerData();
 
                 Console.Write("Data de saída: ");
-                DateTime dataSaida = DateTime.Parse(Console.ReadLine());
+                DateTime dataSaida = Entrada.LerData();
 
                 if (dataSaida <= dataEntrada)
                 {
@@ -143,10 +147,10 @@ class Program{
 
             case 3:
                 Console.Write("Digite o ID da reserva: ");
-                int idCancelar = int.Parse(Console.ReadLine());
+                int idCancelar = Entrada.LerNumero();
 
                 hotel.CancelarReserva(idCancelar);
-                break;
+            break;
 
             case 0:
                 break;
@@ -176,9 +180,9 @@ class Program{
         Console.WriteLine(" | [3] Buscar Hóspede");
         Console.WriteLine(" | [0] Voltar");
         Console.WriteLine("  ");
-        Console.Write(">>> Escolha uma opção: ");
 
-        opHospede = int.Parse(Console.ReadLine());
+        Console.Write(">>> Escolha uma opção: ");
+        opHospede = Entrada.LerNumero();
 
         switch (opHospede)
         {
@@ -192,9 +196,9 @@ class Program{
 
             case 3:
                 Console.Write("Digite o ID do hóspede: ");
-                int id = int.Parse(Console.ReadLine());
+                int id = Entrada.LerNumero();
 
-                Hospede hospede = hotel.BuscarHospede(id);
+                Hospede? hospede = hotel.BuscarHospede(id);
 
                 if (hospede != null)
                 {
@@ -205,7 +209,7 @@ class Program{
                     Console.WriteLine("Hóspede não encontrado!");
                 }
 
-                break;
+            break;
 
             case 0:
                 break;
@@ -237,9 +241,8 @@ class Program{
             Console.WriteLine(" | [0] Sair do Sistema ");
             Console.WriteLine("  ");
             Console.Write(">>> Escolha uma opção: ");
-            opcao = int.Parse(Console.ReadLine());
+            opcao = Entrada.LerNumero();
             
-
             switch (opcao){
                 case 1 :
                  GerenciarHospede(hotel);
@@ -262,7 +265,6 @@ class Program{
 
             }
 
-        
         }while(opcao != 0);
     }
 }
