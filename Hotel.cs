@@ -6,13 +6,18 @@ class Hotel{
 
     public void CadastrarQuarto(){
         Console.WriteLine(" ");
+
         Console.Write("Numero do quarto: ");
         int numeroQuarto = Entrada.LerNumero();
 
-        while (numeroQuarto <= 0){
-            Console.WriteLine("Número de quarto inválido! Digite novamente");
-            Console.WriteLine(" ");
-            Console.Write("Número do quarto: ");
+        while (numeroQuarto <= 0 || BuscarQuarto(numeroQuarto) != null){
+            if (numeroQuarto <= 0){
+                Console.Write("Número de quarto inválido! Digite novamente: ");
+            }
+            else{
+                Console.Write("Esse quarto já está cadastrado! Digite outro: ");
+            }
+
             numeroQuarto = Entrada.LerNumero();
         }
 
@@ -68,13 +73,14 @@ class Hotel{
 }
 
     public void VerificarDisponibilidadeQuarto(int numeroQuarto){
-        for (int i = 0; i < listaQuartos.Count; i++){
-            Quarto quarto = listaQuartos[i];
+        Quarto? quarto = BuscarQuarto(numeroQuarto);
         
-            if(quarto.Numero == numeroQuarto){
-                quarto.VerificarDisponibilidade();
-            }
+        if (quarto != null){
+            quarto.VerificarDisponibilidade();
+        }else{
+            Console.WriteLine("Quarto não encontrado!");
         }
+        
     }
 
 // hospede
@@ -83,6 +89,11 @@ public void CadastrarHospede()
     Console.WriteLine(" ");
     Console.Write("ID do hóspede: ");
     int id = Entrada.LerNumero();
+
+    while (BuscarHospede(id) != null){
+      Console.Write("Esse ID já está cadastrado! Digite outro: ");
+      id = Entrada.LerNumero();
+    }
 
     Console.Write("Nome: ");
     string nome = Entrada.LerTexto();
@@ -129,7 +140,6 @@ public Hospede? BuscarHospede(int id)
 }
 
     // reserva
-
     public void FazerReserva(Reserva reserva)
     {
         listaReservas.Add(reserva);
@@ -167,5 +177,20 @@ public Hospede? BuscarHospede(int id)
         }
 
         Console.WriteLine("Reserva não encontrada!");
+    }
+
+    public Reserva? BuscarReserva(int id)
+    {
+        for (int i = 0; i < listaReservas.Count; i++)
+        {
+            Reserva reserva = listaReservas[i];
+
+            if (reserva.Id == id)
+            {
+                return reserva;
+            }
+        }
+
+        return null;
     }
 }

@@ -95,6 +95,12 @@ class Program{
                 Console.Write("ID da reserva: ");
                 int idReserva = Entrada.LerNumero();
 
+                while (hotel.BuscarReserva(idReserva) != null)
+                {
+                    Console.Write("Esse ID já está cadastrado! Digite outro: ");
+                    idReserva = Entrada.LerNumero();
+                }
+
                 Console.Write("ID do hóspede: ");
                 int idHospede = Entrada.LerNumero();
 
