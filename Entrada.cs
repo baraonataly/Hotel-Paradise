@@ -32,7 +32,7 @@ class Entrada
 
         while (!DateTime.TryParse(Console.ReadLine(), out data))
         {
-            Console.Write("Data inválida! Digite novamente: ");
+            Console.Write("Data inválida! Digite no formato dd/mm/aaaa: ");
         }
 
         return data;

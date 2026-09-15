@@ -127,10 +127,10 @@ class Program{
                     break;
                 }
 
-                Console.Write("Data de entrada: ");
+                Console.Write("Data de entrada (dd/mm/aaaa): ");
                 DateTime dataEntrada = Entrada.LerData();
 
-                Console.Write("Data de saída: ");
+                Console.Write("Data de saída (dd/mm/aaaa): ");
                 DateTime dataSaida = Entrada.LerData();
 
                 if (dataSaida <= dataEntrada)
