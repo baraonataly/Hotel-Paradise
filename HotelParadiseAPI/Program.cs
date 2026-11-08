@@ -123,7 +123,7 @@ app.MapGet("/reservas", (AppDbContext context) =>
 app.MapPost("/reservas", (AppDbContext context, Reserva reserva) =>
 {
     // verifica as datas
-    if (reserva.DataSaida <= reserva.DataEntrada)
+    if (reserva.DataSaida.Date <= reserva.DataEntrada.Date)
         return Results.BadRequest("A data de saída deve ser posterior à data de entrada.");
 
     // busca hóspede e quarto
