@@ -1,55 +1,83 @@
 # 🏨 Hotel Paradise
 
-Sistema de gerenciamento de hotel desenvolvido em **C#** para a disciplina de **Desenvolvimento de Software Visual**.
+API REST para gerenciamento de hotel, desenvolvida em **C#** para a disciplina de **Desenvolvimento de Software Visual**.
 
-## Descrição
+## 📌 Descrição
 
-O **Hotel Paradise** é um sistema desenvolvido para simular o gerenciamento básico de um hotel. O sistema permitirá o cadastro e gerenciamento de hóspedes e quartos, além da realização e controle de reservas.
+O **Hotel Paradise** é um sistema que permite gerenciar hóspedes, quartos e reservas por meio de requisições HTTP.
 
-O projeto tem como objetivo aplicar conceitos de programação orientada a objetos em C#, como **classes, objetos, métodos, construtores, relacionamentos entre objetos e listas (`List<T>`)**, além da implementação de regras de negócio.
+A aplicação utiliza **ASP.NET Core Minimal API** para disponibilizar os endpoints e **Entity Framework Core** para realizar a comunicação com o banco de dados SQLite, garantindo a persistência das informações.
+
+O projeto tem como objetivo aplicar conceitos de programação orientada a objetos, desenvolvimento de APIs e persistência de dados.
 
 ## 👥 Integrantes
 
-* [Nátaly Barão]
-* [Stephany Ramina]
+- Nátaly Barão
+- Stephany Ramina
 
 ## ⚙️ Funcionalidades
 
-O sistema contará com as seguintes funcionalidades:
+### Hóspedes
 
-* Cadastro de hóspedes;
-* Listagem de hóspedes;
-* Busca de hóspedes;
-* Cadastro de quartos;
-* Listagem de quartos;
-* Busca de quartos;
-* Realização de reservas;
-* Listagem de reservas;
-* Cancelamento de reservas;
-* Verificação da disponibilidade dos quartos;
-* Cálculo do valor total da hospedagem;
-* Validação das datas da reserva.
+- Cadastro de hóspedes;
+- Listagem de hóspedes;
+- Busca de hóspede por ID;
+- Atualização de dados;
+- Exclusão de hóspedes.
+
+### Quartos
+
+- Cadastro de quartos;
+- Listagem de quartos;
+- Exclusão de quartos, com verificação de reservas vinculadas.
+
+### Reservas
+
+- Cadastro de reservas;
+- Listagem de reservas;
+- Cancelamento de reservas;
+- Validação das datas;
+- Verificação de conflitos de reservas para o mesmo quarto;
+- Cálculo automático do valor total da hospedagem.
 
 ## 🧩 Estrutura do projeto
 
-O sistema será organizado utilizando as seguintes classes principais:
+O projeto está organizado da seguinte forma:
 
-* **Hospede** — representa os hóspedes cadastrados no hotel;
-* **Quarto** — representa os quartos disponíveis no hotel;
-* **Reserva** — representa as reservas realizadas, relacionando um hóspede a um quarto;
-* **Hotel** — responsável pelo gerenciamento das listas e operações do sistema;
-* **Program** — responsável pela execução do programa e pelo menu de interação com o usuário.
+- **Program.cs** — configuração da aplicação e definição dos endpoints da API;
+- **Models/** — classes que representam Hóspede, Quarto e Reserva;
+- **AppDbContext.cs** — contexto responsável pela comunicação com o banco de dados;
+- **Migrations/** — arquivos de migração utilizados para criar e atualizar a estrutura do banco de dados;
+- **hotelparadise.db** — banco de dados SQLite utilizado pela aplicação.
 
 ## 🛠️ Tecnologias
 
-* **C#**
-* **.NET**
-* **Git**
-* **GitHub**
+- **C#**
+- **.NET**
+- **ASP.NET Core Minimal API**
+- **Entity Framework Core**
+- **SQLite**
+- **Git**
+- **GitHub**
+- **Postman** — utilizado para testar os endpoints.
 
 ## ▶️ Como executar
 
 1. Clone este repositório.
-2. Abra o projeto no **Visual Studio** ou **Visual Studio Code**.
-3. Certifique-se de possuir o **.NET SDK** instalado.
-4. Execute o projeto.
+2. Certifique-se de possuir o **.NET SDK** instalado.
+3. Abra o terminal na pasta raiz do projeto.
+4. Restaure as dependências:
+
+   ```bash
+   dotnet restore HotelParadiseAPI/HotelParadiseAPI.csproj
+   ```
+
+5. Execute a API:
+
+   ```bash
+   dotnet run --project HotelParadiseAPI/HotelParadiseAPI.csproj
+   ```
+
+6. Utilize o Postman para enviar requisições HTTP aos endpoints disponibilizados pela aplicação.
+
+O endereço local da API será informado no terminal após a execução.
